@@ -5,25 +5,28 @@
 package br.dev.riquelme.FastAndFuriousBurguer.domain.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Produto {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private double preco;
-    private String ingredientes;
+    private String descricao;
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, double preco, String ingredientes) {
+    public Produto(Long id, String nome, double preco, String descricao) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
-        this.ingredientes = ingredientes;
+        this.descricao = descricao;
     }
 
     public Long getId() {
@@ -50,12 +53,12 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getIngredientes() {
-        return ingredientes;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override
