@@ -14,14 +14,16 @@ public class ItensPedido {
     private Long id;
     private int qtd;
     private double valUnit;
+    private String obs;
 
     public ItensPedido() {
     }
 
-    public ItensPedido(Long id, int qtd, double valUnit) {
+    public ItensPedido(Long id, int qtd, double valUnit, String obs) {
         this.id = id;
         this.qtd = qtd;
         this.valUnit = valUnit;
+        this.obs = obs;
     }
 
     public Long getId() {

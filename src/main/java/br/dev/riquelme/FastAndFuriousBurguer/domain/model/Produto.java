@@ -5,6 +5,8 @@
 package br.dev.riquelme.FastAndFuriousBurguer.domain.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,15 +20,19 @@ public class Produto {
     private String nome;
     private double preco;
     private String descricao;
-
+    
+    @Enumerated(EnumType.STRING)
+    private CategoriaProduto categoriaProduto;
+    
     public Produto() {
     }
-
-    public Produto(Long id, String nome, double preco, String descricao) {
+    
+    public Produto(Long id, String nome, double preco, String descricao, CategoriaProduto categoriaProduto) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.descricao = descricao;
+        this.categoriaProduto = categoriaProduto;
     }
 
     public Long getId() {
@@ -61,6 +67,14 @@ public class Produto {
         this.descricao = descricao;
     }
 
+    public CategoriaProduto getCategoriaProduto() {
+        return categoriaProduto;
+    }
+
+    public void setCategoriaProduto(CategoriaProduto categoriaProduto) {
+        this.categoriaProduto = categoriaProduto;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

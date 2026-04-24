@@ -4,6 +4,7 @@
  */
 package br.dev.riquelme.FastAndFuriousBurguer.api.controller;
 
+import br.dev.riquelme.FastAndFuriousBurguer.domain.model.CategoriaProduto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Produto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.repository.ProdutoRepository;
 import java.util.List;
@@ -33,8 +34,8 @@ public class ProdutoController {
         return produtoRepository.findAll();
 //        return produtoRepository.findByNome("X-bacon");
     }
-    
-        @GetMapping("/produto/{id}")
+
+    @GetMapping("/produto/{id}")
     public ResponseEntity<Produto> buscar(@PathVariable Long id) {
         Optional<Produto> produto = produtoRepository.findById(id);
         if (produto.isPresent()) {
@@ -44,13 +45,23 @@ public class ProdutoController {
         }
     }
     
+    @GetMapping("/produto/cat/{categoriaProduto}")
+    public ResponseEntity<List<Produto>> buscarCat(@PathVariable CategoriaProduto categoriaProduto) {
+        List<Produto> produto = produtoRepository.findByCategoriaProduto(categoriaProduto);
+        if (produto.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Retorna 204 se a lista estiver vazia
+        } else {
+            return ResponseEntity.ok(produto); // Retorna 200 com a lista de produtos
+        }
+    }
+
     @PostMapping("/produto")
     @ResponseStatus(HttpStatus.CREATED)
     public Produto adicionar(@RequestBody Produto produto) {
-        
+
         return produtoRepository.save(produto);
     }
-    
+
     @PutMapping("/produto/{id}")
     public ResponseEntity<Produto> atualizar(@PathVariable Long id,
             @RequestBody Produto produto) {
@@ -58,19 +69,19 @@ public class ProdutoController {
         if (!produtoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        
+
         produto.setId(id);
         produto = produtoRepository.save(produto);
         return ResponseEntity.ok(produto);
     }
-    
+
     @DeleteMapping("/produto/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        
+
         if (!produtoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        
+
         produtoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }

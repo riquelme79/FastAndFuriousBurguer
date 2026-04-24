@@ -28,7 +28,7 @@ public class PedidoController {
     @GetMapping("/pedido")
     public List<Pedido> listas() {
         return pedidoRepository.findAll();
-//        return pedidoRepository.findByNome("Riquelme");
+//        return pedidoRepository.findByCliente("Riquelme");
     }
 
     @GetMapping("/pedido/{id}")

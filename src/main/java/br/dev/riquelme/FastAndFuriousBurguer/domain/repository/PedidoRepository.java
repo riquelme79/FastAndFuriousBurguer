@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
     List<Pedido> findAll();
-    List<Pedido> findByNome(String nome);
+    List<Pedido> findByCliente(String cliente);
 }
