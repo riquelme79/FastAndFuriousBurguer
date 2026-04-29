@@ -7,6 +7,7 @@ package br.dev.riquelme.FastAndFuriousBurguer.api.controller;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.CategoriaProduto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Produto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.repository.ProdutoRepository;
+import br.dev.riquelme.FastAndFuriousBurguer.domain.service.ProdutoService;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    @Autowired
+    private ProdutoService produtoService;
+
     @GetMapping("/produto")
     public List<Produto> listas() {
         return produtoRepository.findAll();
@@ -44,7 +48,7 @@ public class ProdutoController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @GetMapping("/produto/cat/{categoriaProduto}")
     public ResponseEntity<List<Produto>> buscarCat(@PathVariable CategoriaProduto categoriaProduto) {
         List<Produto> produto = produtoRepository.findByCategoriaProduto(categoriaProduto);
@@ -63,26 +67,14 @@ public class ProdutoController {
     }
 
     @PutMapping("/produto/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id,
-            @RequestBody Produto produto) {
-        //Verifica se o cliente existe
-        if (!produtoRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        produto.setId(id);
-        produto = produtoRepository.save(produto);
-        return ResponseEntity.ok(produto);
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+        Produto atualizado = produtoService.atualizar(id, produto);
+        return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/produto/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-
-        if (!produtoRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
-        produtoRepository.deleteById(id);
+        produtoService.excluir(id); 
         return ResponseEntity.noContent().build();
     }
 }

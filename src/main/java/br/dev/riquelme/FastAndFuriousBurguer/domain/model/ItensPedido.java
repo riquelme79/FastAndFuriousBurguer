@@ -13,13 +13,13 @@ public class ItensPedido {
     @Id
     private Long id;
     private int qtd;
-    private double valUnit;
+    private Double valUnit;
     private String obs;
 
     public ItensPedido() {
     }
 
-    public ItensPedido(Long id, int qtd, double valUnit, String obs) {
+    public ItensPedido(Long id, int qtd, Double valUnit, String obs) {
         this.id = id;
         this.qtd = qtd;
         this.valUnit = valUnit;
@@ -42,11 +42,11 @@ public class ItensPedido {
         this.qtd = qtd;
     }
 
-    public double getValUnit() {
+    public Double getValUnit() {
         return valUnit;
     }
 
-    public void setValUnit(double valUnit) {
+    public void setValUnit(Double valUnit) {
         this.valUnit = valUnit;
     }
 

@@ -18,8 +18,9 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private double preco;
+    private Double preco;
     private String descricao;
+    
     
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoriaProduto;
@@ -27,7 +28,7 @@ public class Produto {
     public Produto() {
     }
     
-    public Produto(Long id, String nome, double preco, String descricao, CategoriaProduto categoriaProduto) {
+    public Produto(Long id, String nome, Double preco, String descricao, CategoriaProduto categoriaProduto) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -51,11 +52,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public double getPreco() {
+    public Double getPreco() {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(Double preco) {
         this.preco = preco;
     }
 
