@@ -5,6 +5,7 @@
 package br.dev.riquelme.FastAndFuriousBurguer.domain.repository;
 
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Pedido;
+import br.dev.riquelme.FastAndFuriousBurguer.domain.model.StatusPedido;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface PedidoRepository extends JpaRepository<Pedido, Long>{
     List<Pedido> findAll();
     List<Pedido> findByCliente(String cliente);
+    List<Pedido> findByStatusPedido(StatusPedido statusPedido);
 }

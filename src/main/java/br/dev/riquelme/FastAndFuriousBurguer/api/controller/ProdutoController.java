@@ -4,10 +4,12 @@
  */
 package br.dev.riquelme.FastAndFuriousBurguer.api.controller;
 
+import br.dev.riquelme.FastAndFuriousBurguer.api.dto.ProdutoDTO;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.CategoriaProduto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Produto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.repository.ProdutoRepository;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.service.ProdutoService;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,14 +63,14 @@ public class ProdutoController {
 
     @PostMapping("/produto")
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto adicionar(@RequestBody Produto produto) {
+    public Produto adicionar(@Valid @RequestBody ProdutoDTO dto) {
 
-        return produtoRepository.save(produto);
+        return produtoService.adicionar(dto);
     }
 
     @PutMapping("/produto/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-        Produto atualizado = produtoService.atualizar(id, produto);
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoDTO dto) {
+        Produto atualizado = produtoService.atualizar(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 

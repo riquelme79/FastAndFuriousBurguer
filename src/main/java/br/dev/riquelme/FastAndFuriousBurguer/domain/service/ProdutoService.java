@@ -4,11 +4,10 @@
  */
 package br.dev.riquelme.FastAndFuriousBurguer.domain.service;
 
-import br.dev.riquelme.FastAndFuriousBurguer.domain.model.CategoriaProduto;
+import br.dev.riquelme.FastAndFuriousBurguer.api.dto.ProdutoDTO;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Produto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +18,31 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     @Transactional
-    public Produto atualizar(Long id, Produto produtoNovo) {
+    public Produto adicionar(ProdutoDTO dto) {
+        Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setPreco(dto.getPreco());
+        produto.setDescricao(dto.getDescricao());
+        produto.setCategoriaProduto(dto.getCategoriaProduto());
+        return produtoRepository.save(produto);
+    }
+
+    @Transactional
+    public Produto atualizar(Long id, ProdutoDTO dto) {
         Produto produtoExistente = produtoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        if (produtoNovo.getNome() != null) {
-            produtoExistente.setNome(produtoNovo.getNome());
+        if (dto.getNome() != null) {
+            produtoExistente.setNome(dto.getNome());
         }
-        if (produtoNovo.getPreco() != null) { // agora funciona com Double
-            produtoExistente.setPreco(produtoNovo.getPreco());
+        if (dto.getPreco() != null) {
+            produtoExistente.setPreco(dto.getPreco());
         }
-        if (produtoNovo.getDescricao() != null) {
-            produtoExistente.setDescricao(produtoNovo.getDescricao());
+        if (dto.getDescricao() != null) {
+            produtoExistente.setDescricao(dto.getDescricao());
         }
-        if (produtoNovo.getCategoriaProduto() != null) {
-            produtoExistente.setCategoriaProduto(produtoNovo.getCategoriaProduto());
+        if (dto.getCategoriaProduto() != null) {
+            produtoExistente.setCategoriaProduto(dto.getCategoriaProduto());
         }
 
         return produtoRepository.save(produtoExistente);

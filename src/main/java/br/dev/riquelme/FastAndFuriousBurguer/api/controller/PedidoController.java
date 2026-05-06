@@ -7,6 +7,7 @@ package br.dev.riquelme.FastAndFuriousBurguer.api.controller;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Pedido;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.Produto;
 import br.dev.riquelme.FastAndFuriousBurguer.domain.repository.PedidoRepository;
+import br.dev.riquelme.FastAndFuriousBurguer.domain.service.PedidoService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
@@ -24,7 +25,7 @@ public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
-
+    
     @GetMapping("/pedido")
     public List<Pedido> listas() {
         return pedidoRepository.findAll();

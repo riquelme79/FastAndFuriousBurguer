@@ -20,8 +20,6 @@ public class Produto {
     private String nome;
     private Double preco;
     private String descricao;
-    
-    
     @Enumerated(EnumType.STRING)
     private CategoriaProduto categoriaProduto;
     
