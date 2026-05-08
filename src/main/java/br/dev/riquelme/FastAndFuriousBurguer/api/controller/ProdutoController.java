@@ -69,7 +69,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/produto/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @Valid @RequestBody ProdutoDTO dto) {
+    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody ProdutoDTO dto) {
         Produto atualizado = produtoService.atualizar(id, dto);
         return ResponseEntity.ok(atualizado);
     }

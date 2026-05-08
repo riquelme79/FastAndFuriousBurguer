@@ -5,6 +5,8 @@
 package br.dev.riquelme.FastAndFuriousBurguer.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,33 +14,38 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 public class Pedido {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cliente;
     private String cpf;
-    
+
     @JsonFormat(pattern = ("dd/MM/yyyy HH:mm:ss"))
     private LocalDateTime dtAberto;
     @JsonFormat(pattern = ("dd/MM/yyyy HH:mm:ss"))
     private LocalDateTime dtPronto;
     @JsonFormat(pattern = ("dd/MM/yyyy HH:mm:ss"))
     private LocalDateTime dtEntregue;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status_pedido")
     private StatusPedido statusPedido;
 
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItensPedido> itens;
+
     public Pedido() {
     }
 
-    public Pedido(Long id, String cliente, String cpf, LocalDateTime dtAberto, LocalDateTime dtPronto, LocalDateTime dtEntregue, StatusPedido statusPedido) {
+    public Pedido(Long id, String cliente, String cpf, LocalDateTime dtAberto, LocalDateTime dtPronto, LocalDateTime dtEntregue, StatusPedido statusPedido, List<ItensPedido> itens) {
         this.id = id;
         this.cliente = cliente;
         this.cpf = cpf;
@@ -46,6 +53,7 @@ public class Pedido {
         this.dtPronto = dtPronto;
         this.dtEntregue = dtEntregue;
         this.statusPedido = statusPedido;
+        this.itens = itens;
     }
 
     public Long getId() {
@@ -104,10 +112,18 @@ public class Pedido {
         this.statusPedido = statusPedido;
     }
 
+    public List<ItensPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensPedido> itens) {
+        this.itens = itens;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -125,5 +141,4 @@ public class Pedido {
         final Pedido other = (Pedido) obj;
         return Objects.equals(this.id, other.id);
     }
-    
 }

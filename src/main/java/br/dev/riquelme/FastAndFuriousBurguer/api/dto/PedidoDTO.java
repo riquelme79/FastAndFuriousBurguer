@@ -6,6 +6,8 @@ package br.dev.riquelme.FastAndFuriousBurguer.api.dto;
 
 import br.dev.riquelme.FastAndFuriousBurguer.domain.model.StatusPedido;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  *
@@ -19,7 +21,8 @@ public class PedidoDTO {
     @NotBlank(message = "CPF é obrigatório")
     private String cpf;
 
-    private StatusPedido statusPedido;
+    @NotNull(message = "Itens são obrigatórios")
+    private List<ItensPedidoDTO> itens;
 
     public String getCliente() {
         return cliente;
@@ -37,11 +40,11 @@ public class PedidoDTO {
         this.cpf = cpf;
     }
 
-    public StatusPedido getStatusPedido() {
-        return statusPedido;
+    public List<ItensPedidoDTO> getItens() {
+        return itens;
     }
 
-    public void setStatusPedido(StatusPedido statusPedido) {
-        this.statusPedido = statusPedido;
+    public void setItens(List<ItensPedidoDTO> itens) {
+        this.itens = itens;
     }
 }
