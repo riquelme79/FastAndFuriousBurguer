@@ -59,6 +59,12 @@ public class PedidoService {
         }
 
         pedido.setItens(itens);
+        
+        double total = itens.stream()
+                .mapToDouble(i -> i.getValUnit() * i.getQtd())
+                .sum();
+        pedido.setValorTotal(total);
+        
         return pedidoRepository.save(pedido);
     }
 
@@ -90,6 +96,12 @@ public class PedidoService {
                 pedido.getItens().add(item);
             }
         }
+        
+        double total = pedido.getItens().stream()
+                .mapToDouble(i -> i.getValUnit() * i.getQtd())
+                .sum();
+        pedido.setValorTotal(total);
+        
         return pedidoRepository.save(pedido);
     }
 

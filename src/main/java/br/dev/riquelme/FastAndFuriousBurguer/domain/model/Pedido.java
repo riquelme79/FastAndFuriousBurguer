@@ -41,11 +41,13 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItensPedido> itens;
+    
+    private Double valorTotal;
 
     public Pedido() {
     }
-
-    public Pedido(Long id, String cliente, String cpf, LocalDateTime dtAberto, LocalDateTime dtPronto, LocalDateTime dtEntregue, StatusPedido statusPedido, List<ItensPedido> itens) {
+   
+    public Pedido(Long id, String cliente, String cpf, LocalDateTime dtAberto, LocalDateTime dtPronto, LocalDateTime dtEntregue, StatusPedido statusPedido, List<ItensPedido> itens, Double valorTotal) {
         this.id = id;
         this.cliente = cliente;
         this.cpf = cpf;
@@ -54,6 +56,7 @@ public class Pedido {
         this.dtEntregue = dtEntregue;
         this.statusPedido = statusPedido;
         this.itens = itens;
+        this.valorTotal = valorTotal;
     }
 
     public Long getId() {
@@ -120,10 +123,18 @@ public class Pedido {
         this.itens = itens;
     }
 
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
